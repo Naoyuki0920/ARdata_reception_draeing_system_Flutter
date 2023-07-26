@@ -41,36 +41,17 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Local & Web Objects'),
-        ),
-        body: Stack(children: [
-          ARView(
-            onARViewCreated: onARViewCreated,
-            planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
-          ),
-          Align(
-              alignment: FractionalOffset.bottomCenter,
-              child:
-                  Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                        onPressed: onFileSystemObjectAtOriginButtonPressed,
-                        child: const Text(
-                            "Add/Remove Filesystem\nObject at Origin")),
-                    // ElevatedButton(
-                    //     onPressed: onLocalObjectAtOriginButtonPressed,
-                    //     child:
-                    //         const Text("Add/Remove Local\nObject at Origin")),
-                    ElevatedButton(
-                        onPressed: onWebObjectAtOriginButtonPressed,
-                        child: const Text("Add/Remove Web\nObject at Origin")),
-                  ],
-                ),
-              ]))
-        ]));
+      appBar: AppBar(
+        title: const Text('AR'),
+      ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: onFileSystemObjectAtOriginButtonPressed,
+          child: const Icon(Icons.add)),
+      body: ARView(
+        onARViewCreated: onARViewCreated,
+        planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
+      ),
+    );
   }
 
   void onARViewCreated(
@@ -89,21 +70,8 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
           handleTaps: false,
         );
     this.arObjectManager!.onInitialize();
-
-    //Download model to file system
     httpClient = HttpClient();
-    // _downloadFile(
-    //     "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/Duck/glTF-Binary/Duck.glb",
-    //     "LocalDuck.glb");
-
-    _downloadFile(
-        "http://192.168.186.79:5000/get_glb",
-        "Astronaut.glb");
-
-    // Alternative to use type fileSystemAppFolderGLTF2:
-    // _downloadAndUnpack(
-    //    "https://drive.google.com/uc?export=download&id=1fng7yiK0DIR0uem7XkV2nlPSGH9PysUs",
-    //    "Chicken_01.zip");
+    _downloadFile("http://192.168.186.79:5000/get_glb", "Astronaut.glb");
   }
 
   Future<File> _downloadFile(String url, String filename) async {
@@ -113,47 +81,7 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
     String dir = (await getApplicationDocumentsDirectory()).path;
     File file = File('$dir/$filename');
     await file.writeAsBytes(bytes);
-    debugPrint(
-        "*******************************************************************************************************************");
-    debugPrint("Downloading finished, path: " '$dir/$filename');
     return file;
-  }
-
-  Future<void> onLocalObjectAtOriginButtonPressed() async {
-    if (localObjectNode != null) {
-      arObjectManager!.removeNode(localObjectNode!);
-      localObjectNode = null;
-    } else {
-      var newNode = ARNode(
-          type: NodeType.localGLTF2,
-          uri: "Models/Chicken_01/Chicken_01.gltf",
-          scale: Vector3(0.2, 0.2, 0.2),
-          position: Vector3(0.0, 0.0, 0.0),
-          rotation: Vector4(1.0, 0.0, 0.0, 0.0));
-      bool? didAddLocalNode = await arObjectManager!.addNode(newNode);
-      localObjectNode = (didAddLocalNode!) ? newNode : null;
-    }
-  }
-
-  Future<void> onWebObjectAtOriginButtonPressed() async {
-    if (webObjectNode != null) {
-      arObjectManager!.removeNode(webObjectNode!);
-      webObjectNode = null;
-      debugPrint(
-          "=======================================================================================================================");
-      debugPrint("delete");
-    } else {
-      var newNode = ARNode(
-          type: NodeType.webGLB,
-          uri:
-              "http://192.168.186.79:5000/get_glb",
-          scale: Vector3(0.2, 0.2, 0.2));
-      bool? didAddWebNode = await arObjectManager!.addNode(newNode);
-      webObjectNode = (didAddWebNode!) ? newNode : null;
-      debugPrint(
-          "-----------------------------------------------------------------------------------------------------------------------");
-      debugPrint("ar add");
-    }
   }
 
   Future<void> onFileSystemObjectAtOriginButtonPressed() async {
@@ -165,11 +93,6 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
           type: NodeType.fileSystemAppFolderGLB,
           uri: "Astronaut.glb",
           scale: Vector3(0.2, 0.2, 0.2));
-      //Alternative to use type fileSystemAppFolderGLTF2:
-      //var newNode = ARNode(
-      //    type: NodeType.fileSystemAppFolderGLTF2,
-      //    uri: "Chicken_01.gltf",
-      //    scale: Vector3(0.2, 0.2, 0.2));
       bool? didAddFileSystemNode = await arObjectManager!.addNode(newNode);
       fileSystemNode = (didAddFileSystemNode!) ? newNode : null;
     }

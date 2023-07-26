@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
         useMaterial3: true,
       ),
       home: const MyHomePage(),
@@ -32,7 +32,7 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Center(
           child: ElevatedButton(
-        child: const Text("押せ"),
+        child: const Text("AR表示"),
         onPressed: () => {
           Navigator.push(
               context,
