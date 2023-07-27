@@ -38,7 +38,7 @@ class _ObjectsOnPlanesWidgetState extends State<ObjectsOnPlanesWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Anchors & Objects on Planes'),
+        title: const Text('Plane AR'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: onRemoveEverything,

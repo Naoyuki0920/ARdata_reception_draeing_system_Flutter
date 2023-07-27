@@ -40,7 +40,7 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AR'),
+        title: const Text('Anchor AR'),
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: onFileSystemObjectAtOriginButtonPressed,
