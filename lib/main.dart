@@ -1,11 +1,8 @@
-import 'package:ar_flutter_plugin_sample/anchor_ar_drawing_button.dart';
-import 'package:ar_flutter_plugin_sample/ar_object_download.dart';
-import 'package:ar_flutter_plugin_sample/plane_ar_drawing_button.dart';
+import 'package:ar_flutter_plugin_sample/view/anchor_ar_drawing_button.dart';
+import 'package:ar_flutter_plugin_sample/view/plane_ar_drawing_button.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  ArObjectDownload.downloadFile(
-        "http://192.168.186.79:5000/get_glb", "Astronaut.glb");
   runApp(const MyApp());
 }
 
