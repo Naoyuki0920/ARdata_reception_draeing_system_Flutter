@@ -4,7 +4,6 @@ import 'package:ar_flutter_plugin/managers/ar_location_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_session_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_object_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_anchor_manager.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
 import 'package:ar_flutter_plugin/datatypes/config_planedetection.dart';
@@ -12,7 +11,6 @@ import 'package:ar_flutter_plugin/datatypes/node_types.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
 // ignore: depend_on_referenced_packages
 import 'package:vector_math/vector_math_64.dart';
-import 'package:path_provider/path_provider.dart';
 
 class LocalAndWebObjectsWidget extends StatefulWidget {
   const LocalAndWebObjectsWidget({Key? key}) : super(key: key);
@@ -70,18 +68,6 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
           handleTaps: false,
         );
     this.arObjectManager!.onInitialize();
-    httpClient = HttpClient();
-    _downloadFile("http://192.168.186.79:5000/get_glb", "Astronaut.glb");
-  }
-
-  Future<File> _downloadFile(String url, String filename) async {
-    var request = await httpClient!.getUrl(Uri.parse(url));
-    var response = await request.close();
-    var bytes = await consolidateHttpClientResponseBytes(response);
-    String dir = (await getApplicationDocumentsDirectory()).path;
-    File file = File('$dir/$filename');
-    await file.writeAsBytes(bytes);
-    return file;
   }
 
   Future<void> onFileSystemObjectAtOriginButtonPressed() async {

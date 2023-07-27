@@ -1,7 +1,11 @@
-import 'package:ar_flutter_plugin_sample/localandwebobjectsexample.dart';
+import 'package:ar_flutter_plugin_sample/anchor_ar_drawing_button.dart';
+import 'package:ar_flutter_plugin_sample/ar_object_download.dart';
+import 'package:ar_flutter_plugin_sample/plane_ar_drawing_button.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  ArObjectDownload.downloadFile(
+        "http://192.168.186.79:5000/get_glb", "Astronaut.glb");
   runApp(const MyApp());
 }
 
@@ -12,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
       home: const MyHomePage(),
@@ -20,9 +24,19 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  var _currentPageIndex = 0;
+  final _pages = <Widget>[
+    const AnchorArDrawingButton(),
+    const PlaneArDrawingButton()
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,16 +44,18 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("アプリ"),
       ),
-      body: Center(
-          child: ElevatedButton(
-        child: const Text("AR表示"),
-        onPressed: () => {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const LocalAndWebObjectsWidget()))
-        },
-      )),
+      body: _pages[_currentPageIndex],
+      bottomNavigationBar: NavigationBar(
+          onDestinationSelected: (int index) {
+            setState(() {
+              _currentPageIndex = index;
+            });
+          },
+          selectedIndex: _currentPageIndex,
+          destinations: const [
+            NavigationDestination(icon: Icon(Icons.view_in_ar), label: 'Anchor'),
+            NavigationDestination(icon: Icon(Icons.crop_square), label: 'Plane'),
+          ]),
     );
   }
 }
