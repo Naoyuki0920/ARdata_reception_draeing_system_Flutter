@@ -1,3 +1,4 @@
+import 'package:ar_flutter_plugin_sample/infrastructure/api_url_decision.dart';
 import 'package:ar_flutter_plugin_sample/infrastructure/ar_object_download.dart';
 import 'package:ar_flutter_plugin_sample/view/objectsonplanesexample.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,9 @@ class PlaneArDrawingButton extends StatelessWidget {
     return Center(
         child: ElevatedButton(
       child: const Text("Plane AR表示"),
-      onPressed: () {
-        ArObjectDownload.downloadFile(
-            "http://192.168.186.137:5000/get_glb", "Astronaut.glb");
+      onPressed: () async {
+        String url = await ApiUrlDecision.decisionAPI();
+        ArObjectDownload.downloadFile(url, "Astronaut.glb");
         Navigator.push(
             context,
             MaterialPageRoute(
