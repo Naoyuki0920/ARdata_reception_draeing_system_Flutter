@@ -78,7 +78,9 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
       var newNode = ARNode(
           type: NodeType.fileSystemAppFolderGLB,
           uri: "Astronaut.glb",
-          scale: Vector3(0.2, 0.2, 0.2));
+          scale: Vector3(0.1, 0.1, 0.1),
+          position: Vector3(0.0, 0.0, 0.0),
+          rotation: Vector4(1.0, 0.0, 0.0, 0.0));
       bool? didAddFileSystemNode = await arObjectManager!.addNode(newNode);
       fileSystemNode = (didAddFileSystemNode!) ? newNode : null;
     }
