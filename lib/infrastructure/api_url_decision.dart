@@ -4,7 +4,8 @@ import 'package:network_info_plus/network_info_plus.dart';
 class ApiUrlDecision {
   static final info = NetworkInfo();
   static Map<String, String> apiURL = {
-    '192.168.249.50': 'http://192.168.186.79:5000/get_glb',
+    // Xperia5 テザリング
+    '192.168.249.50': 'http://192.168.75.11:5000/get_glb',  //子機1
     '192.168.249.99': 'http://192.168.186.137:5000/get_glb',
   };
   static decisionAPI() async {

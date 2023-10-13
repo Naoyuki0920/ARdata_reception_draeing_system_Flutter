@@ -1,6 +1,8 @@
+import 'package:ar_flutter_plugin_sample/infrastructure/api_url_decision.dart';
 import 'package:ar_flutter_plugin_sample/infrastructure/ar_object_download.dart';
 import 'package:ar_flutter_plugin_sample/view/localandwebobjectsexample.dart';
 import 'package:flutter/material.dart';
+
 
 class AnchorArDrawingButton extends StatelessWidget {
   const AnchorArDrawingButton({super.key});
@@ -10,9 +12,10 @@ class AnchorArDrawingButton extends StatelessWidget {
     return Center(
         child: ElevatedButton(
       child: const Text("Anchor AR表示"),
-      onPressed: () {
-        ArObjectDownload.downloadFile(
-            "http://192.168.186.137:5000/get_glb", "Astronaut.glb");
+      onPressed: () async {
+        String url = await ApiUrlDecision.decisionAPI();
+        ArObjectDownload.downloadFile(url, "Astronaut.glb");
+        // ignore: use_build_context_synchronously
         Navigator.push(
             context,
             MaterialPageRoute(

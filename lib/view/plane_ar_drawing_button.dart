@@ -14,6 +14,7 @@ class PlaneArDrawingButton extends StatelessWidget {
       onPressed: () async {
         String url = await ApiUrlDecision.decisionAPI();
         ArObjectDownload.downloadFile(url, "Astronaut.glb");
+        // ignore: use_build_context_synchronously
         Navigator.push(
             context,
             MaterialPageRoute(
