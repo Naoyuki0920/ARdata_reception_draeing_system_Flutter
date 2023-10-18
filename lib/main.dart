@@ -1,5 +1,4 @@
 import 'package:ar_flutter_plugin_sample/view/anchor_ar_drawing_button.dart';
-import 'package:ar_flutter_plugin_sample/view/plane_ar_drawing_button.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,11 +28,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _currentPageIndex = 0;
-  final _pages = <Widget>[
-    const AnchorArDrawingButton(),
-    const PlaneArDrawingButton()
-  ];
+  // var _currentPageIndex = 0;
+  // final _pages = <Widget>[
+  //   const AnchorArDrawingButton(),
+  //   const PlaneArDrawingButton()
+  // ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,18 +40,19 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("アプリ"),
       ),
-      body: _pages[_currentPageIndex],
-      bottomNavigationBar: NavigationBar(
-          onDestinationSelected: (int index) {
-            setState(() {
-              _currentPageIndex = index;
-            });
-          },
-          selectedIndex: _currentPageIndex,
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.view_in_ar), label: 'Anchor'),
-            NavigationDestination(icon: Icon(Icons.crop_square), label: 'Plane'),
-          ]),
+      body: const AnchorArDrawingButton(),
+      // body: _pages[_currentPageIndex],
+      // bottomNavigationBar: NavigationBar(
+      //     onDestinationSelected: (int index) {
+      //       setState(() {
+      //         _currentPageIndex = index;
+      //       });
+      //     },
+      //     selectedIndex: _currentPageIndex,
+      //     destinations: const [
+      //       NavigationDestination(icon: Icon(Icons.view_in_ar), label: 'Anchor'),
+      //       NavigationDestination(icon: Icon(Icons.crop_square), label: 'Plane'),
+      //     ]),
     );
   }
 }
