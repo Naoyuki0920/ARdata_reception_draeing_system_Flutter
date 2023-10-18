@@ -1,8 +1,10 @@
 import 'package:ar_flutter_plugin_sample/view/anchor_ar_drawing_button.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
+  await [Permission.location].request();
 }
 
 class MyApp extends StatelessWidget {

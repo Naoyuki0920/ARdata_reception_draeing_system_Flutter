@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
 class FilenameDecision {
@@ -8,9 +7,7 @@ class FilenameDecision {
     '192.168.249.99': '2.glb',
   };
   static decisionFilename() async {
-    final wifiIP = await info.getWifiIP();
-    debugPrint(wifiIP);
-    debugPrint(filename[wifiIP]);
-    return filename[wifiIP];
+    final wifiName = await info.getWifiName();
+    return filename[wifiName];
   }
 }

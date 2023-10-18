@@ -12,10 +12,10 @@ class AnchorArDrawingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: ElevatedButton(
-      child: const Text("Anchor AR表示"),
+      child: const Text("AR表示"),
       onPressed: () async {
-        String url = await ApiUrlDecision.decisionAPI();
-        String filename = await FilenameDecision.decisionFilename();
+        String url = await ApiUrlDecision.decisionAPI().toString();
+        String filename = await FilenameDecision.decisionFilename().toString();
         ArObjectDownload.downloadFile(url, filename);
         // ignore: use_build_context_synchronously
         Navigator.push(
