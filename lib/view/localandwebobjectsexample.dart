@@ -13,7 +13,8 @@ import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:vector_math/vector_math_64.dart';
 
 class LocalAndWebObjectsWidget extends StatefulWidget {
-  const LocalAndWebObjectsWidget({Key? key}) : super(key: key);
+  final String fileName;
+  const LocalAndWebObjectsWidget({Key? key, required this.fileName}) : super(key: key);
   @override
   // ignore: library_private_types_in_public_api
   _LocalAndWebObjectsWidgetState createState() =>
@@ -77,7 +78,7 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
     } else {
       var newNode = ARNode(
           type: NodeType.fileSystemAppFolderGLB,
-          uri: "Astronaut.glb",
+          uri: widget.fileName,
           scale: Vector3(0.1, 0.1, 0.1),
           position: Vector3(0.0, 0.0, 0.0),
           rotation: Vector4(1.0, 0.0, 0.0, 0.0));

@@ -13,8 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
       home: const MyHomePage(),
@@ -42,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("アプリ"),
       ),
-      body: const AnchorArDrawingButton(),
+      body: AnchorArDrawingButton(),
       // body: _pages[_currentPageIndex],
       // bottomNavigationBar: NavigationBar(
       //     onDestinationSelected: (int index) {
