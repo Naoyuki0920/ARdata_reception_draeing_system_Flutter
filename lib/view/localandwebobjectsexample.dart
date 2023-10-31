@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:ar_flutter_plugin/managers/ar_location_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_session_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_object_manager.dart';
@@ -10,11 +8,12 @@ import 'package:ar_flutter_plugin/datatypes/config_planedetection.dart';
 import 'package:ar_flutter_plugin/datatypes/node_types.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
 // ignore: depend_on_referenced_packages
-import 'package:vector_math/vector_math_64.dart';
+import 'package:vector_math/vector_math_64.dart' as VectorMath;
 
 class LocalAndWebObjectsWidget extends StatefulWidget {
-  final String fileName;
-  const LocalAndWebObjectsWidget({Key? key, required this.fileName}) : super(key: key);
+  final List<String> fileNameList;
+  const LocalAndWebObjectsWidget({Key? key, required this.fileNameList})
+      : super(key: key);
   @override
   // ignore: library_private_types_in_public_api
   _LocalAndWebObjectsWidgetState createState() =>
@@ -25,11 +24,12 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
   ARSessionManager? arSessionManager;
   ARObjectManager? arObjectManager;
   //String localObjectReference;
-  ARNode? localObjectNode;
+  // ARNode? localObjectNode;
   //String webObjectReference;
-  ARNode? webObjectNode;
+  // ARNode? webObjectNode;
   ARNode? fileSystemNode;
-  HttpClient? httpClient;
+  // HttpClient? httpClient;
+  late String selectedValue;
 
   @override
   void dispose() {
@@ -38,10 +38,38 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.fileNameList.isNotEmpty) {
+      selectedValue = widget.fileNameList[0];
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Anchor AR'),
+        elevation: 0,
+        backgroundColor: Colors.white.withOpacity(0.3),
+        title: const Text('AR'),
+        actions: [
+          DropdownButton(
+            underline: Container(),
+            value: selectedValue,
+            items: widget.fileNameList.map((String list) {
+              return DropdownMenuItem(
+                value: list,
+                child: Text(list),
+              );
+            }).toList(),
+            onChanged: (String? value) {
+              setState(() {
+                selectedValue = value!;
+              });
+            },
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: onFileSystemObjectAtOriginButtonPressed,
@@ -78,10 +106,10 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
     } else {
       var newNode = ARNode(
           type: NodeType.fileSystemAppFolderGLB,
-          uri: widget.fileName,
-          scale: Vector3(0.1, 0.1, 0.1),
-          position: Vector3(0.0, 0.0, 0.0),
-          rotation: Vector4(1.0, 0.0, 0.0, 0.0));
+          uri: selectedValue,
+          scale: VectorMath.Vector3(0.1, 0.1, 0.1),
+          position: VectorMath.Vector3(0.0, 0.0, 0.0),
+          rotation: VectorMath.Vector4(1.0, 0.0, 0.0, 0.0));
       bool? didAddFileSystemNode = await arObjectManager!.addNode(newNode);
       fileSystemNode = (didAddFileSystemNode!) ? newNode : null;
     }

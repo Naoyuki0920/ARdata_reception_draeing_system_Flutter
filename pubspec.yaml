@@ -38,6 +38,8 @@ dependencies:
   path_provider: ^2.0.15
   network_info_plus: ^4.0.2
   permission_handler: ^10.4.5
+  http: ^1.1.0
+  archive: ^3.4.6
 
 dev_dependencies:
   flutter_test:
