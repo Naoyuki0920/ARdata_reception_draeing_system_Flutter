@@ -71,9 +71,10 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
           onPressed: onFileSystemObjectAtOriginButtonPressed,
-          child: const Icon(Icons.add)),
+          label: const Text("add & remove"),
+          icon: const Icon(Icons.add)),
       body: ARView(
         onARViewCreated: onARViewCreated,
         planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
